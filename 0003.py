@@ -2,36 +2,28 @@
 # What is the largest prime factor of the number 600851475143 ?
 import math
 
-primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
-    47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+# primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+#       47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
-n = 13195
-
-
-def is_prime(x):
-    if x in primes:
-        return True
-    else:
-        limite = int(math.floor(math.sqrt(x)))
-        for prime in primes[1:]:
-            if x % prime == 0:
-                return False
-        for num in range(max(primes) + 1, limite + 1):
-            if x % num == 0:
-                return False
-        # print primes
-        primes.append(x)
-        primes.sort()
-        return True
-
-
-limit = int(math.floor(math.sqrt(n)))
-print limit
+n = 600851475143
 factors = []
-for num in range(2, limit + 1):
-    if is_prime(num) and n % num == 0:
-        factors.append(num)
+
+
+def pfactors(num):
+    global factors
+    limit = int(math.floor(math.sqrt(num)))
+    for i in xrange(2, limit+1):
+        dm = divmod(num, i)
+        if dm[1] != 0:
+            continue
+        else:
+            factors.append(i)
+            num = dm[0]
+            #pfactors(dm[0])
+    #factors.sort()
+    return factors
+
     # break
-print max(factors)
-# print isPrime(n)
+#print max(factors)
+print pfactors(n)
 # print primes
